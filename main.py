@@ -22,7 +22,7 @@ N = np.size(t)
 
 waterDens = 1.0
 areaEject = 9.0
-areaFront = 40.0
+areaFront = 10.0
 dragCoeff = 0.05
 
 jetter = JetPropulsion(waterDens, areaEject, areaFront, dragCoeff)
@@ -68,6 +68,15 @@ plt.figure()
 plt.plot(t, u[0, :], label="u")
 plt.xlabel("Time [s]")
 plt.ylabel("Input")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+plt.figure()
+plt.plot(t, x[0, :], label="x₁")
+plt.plot(t, x[1, :], label="x₂")
+plt.plot(t, u[0, :], "--", label="u")
+plt.xlabel("Time [s]")
 plt.legend()
 plt.grid(True)
 plt.show()
