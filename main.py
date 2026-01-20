@@ -22,7 +22,7 @@ N = np.size(t)
 
 waterDens = 1.0
 areaEject = 9.0
-areaFront = 10.0
+areaFront = 40.0
 dragCoeff = 0.05
 
 jetter = JetPropulsion(waterDens, areaEject, areaFront, dragCoeff)
@@ -43,7 +43,7 @@ for k in range(1,N):
 
     x[:,k] = rk_four(jetter.f, x[:, k-1], u[:, k-1], T)
 
-    u[:,k] = 5 * ((np.sin(0.1 * k))**2)
+    u[:,k] = -5 * (np.sin(0.1 * k))
 
 
 # %%
@@ -51,10 +51,16 @@ for k in range(1,N):
 
 plt.figure()
 plt.plot(t, x[0, :], label="x₁")
+plt.xlabel("Time [s]")
+plt.ylabel("State x1: Mass")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+plt.figure()
 plt.plot(t, x[1, :], label="x₂")
 plt.xlabel("Time [s]")
-plt.ylabel("State")
-plt.legend()
+plt.ylabel("State x2: Velocity")
 plt.grid(True)
 plt.show()
 
