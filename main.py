@@ -20,10 +20,13 @@ N = np.size(t)
 # %%
 # Setup Model
 
+bodyRadius = 6
+radiusNozzle = 4.5
+
 waterDens = 1.0
-areaEject = 9.0
-areaFront = 10.0
-dragCoeff = 0.05
+areaEject = np.pi * (radiusNozzle**2)
+areaFront = np.pi * (bodyRadius**2) 
+dragCoeff = 0.0
 
 jetter = JetPropulsion(waterDens, areaEject, areaFront, dragCoeff)
 
@@ -31,7 +34,7 @@ jetter = JetPropulsion(waterDens, areaEject, areaFront, dragCoeff)
 #Simulate Open Loop System
 
 x_init = np.zeros(2)
-x_init[0] = 25.0
+x_init[0] = 50.0
 x_init[1] = 0.0 
 
 x = np.zeros((2, N))
@@ -41,9 +44,11 @@ x[:, 0] = x_init
 
 for k in range(1,N):
 
-    x[:,k] = rk_four(jetter.f, x[:, k-1], u[:, k-1], T)
+    volume = (np.sin(k*T)**2)
+    flow_rate = 2 * (np.sin(k*T) * np.cos(k*T))
 
-    u[:,k] = -3 * (np.sin(0.1 * k))
+    u[:,k] = flow_rate
+    x[:,k] = rk_four(jetter.f, x[:, k-1], u[:, k-1], T)
 
 
 # %%
@@ -73,9 +78,9 @@ plt.grid(True)
 plt.show()
 
 plt.figure()
-plt.plot(t, x[0, :], label="x₁")
-plt.plot(t, x[1, :], label="x₂")
-plt.plot(t, u[0, :], "--", label="u")
+#plt.plot(t, x[0, :], label="x₁: mass")
+plt.plot(t, x[1, :], label="x₂: velocity")
+plt.plot(t, u[0, :], "--", label="u: jet velocity")
 plt.xlabel("Time [s]")
 plt.legend(loc="upper right")
 plt.grid(True)
