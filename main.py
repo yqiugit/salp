@@ -77,13 +77,34 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-plt.figure()
-#plt.plot(t, x[0, :], label="x₁: mass")
-plt.plot(t, x[1, :], label="x₂: velocity")
-plt.plot(t, u[0, :], "--", label="u: jet velocity")
-plt.xlabel("Time [s]")
-plt.legend(loc="upper right")
-plt.grid(True)
+# plt.figure()
+# plt.plot(t, x[0, :], label="x₁: mass")
+# plt.plot(t, x[1, :], label="x₂: velocity")
+# plt.plot(t, u[0, :], "--", label="u: jet velocity")
+# plt.xlabel("Time [s]")
+# plt.legend(loc="upper right")
+# plt.grid(True)
+# plt.show()
+
+fig, axs = plt.subplots(3, 1, sharex=True, figsize=(8, 6))
+
+# u: jet velocity
+axs[0].plot(t, u[0, :], color="tab:green")
+axs[0].set_ylabel("u: Volumetric Flow Rate")
+axs[0].grid(True)
+
+# x1: mass
+axs[1].plot(t, x[0, :], color="tab:blue")
+axs[1].set_ylabel("x₁: mass")
+axs[1].grid(True)
+
+# x2: velocity
+axs[2].plot(t, x[1, :], color="tab:orange")
+axs[2].set_ylabel("x₂: velocity")
+axs[2].set_xlabel("Time [s]")
+axs[2].grid(True)
+
+plt.tight_layout()
 plt.show()
 
 # %%

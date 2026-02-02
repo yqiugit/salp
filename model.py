@@ -25,20 +25,7 @@ class JetPropulsion:
                            + thrust)
         return f
 
-    def volume(self, t, crankRadius, angularW, crankLength, nozzleRadius, height):  
 
-        sqrt_term = np.sqrt(np.maximum(crankLength**2 - (crankRadius * np.sin(angularW * t))**2, 0))
-        s = crankRadius * np.cos(angularW * t) + sqrt_term - crankLength
-
-        num = -nozzleRadius**2 - 4 * nozzleRadius * s + 4 * s**2
-        den = 2 * nozzleRadius**2
-        alpha = np.arccos(np.clip(num / den, -1, 1))
-
-        C = (nozzleRadius**2 / 2) * (alpha - np.sin(alpha))
-        A = np.pi * nozzleRadius**2 - 2 * C
-        
-        return A * height
-    
     
 
 
