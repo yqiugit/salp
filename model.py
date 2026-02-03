@@ -11,7 +11,7 @@ class JetPropulsion:
 
     def f(self, x, u):
 
-        f = np.zeros(2)
+        f = np.zeros(3)
 
         f[0] = self.dens * u[0] 
 
@@ -21,8 +21,12 @@ class JetPropulsion:
         else:
             thrust = -(f[0]*x[1])
 
-        f[1] = (1/x[0]) * ((-0.5 * self.dragCoeff * self.areaFront * (x[1]**2)) 
-                           + thrust)
+        drag = -0.5 * self.dragCoeff * self.areaFront * (abs(x[1]) * x[1])
+
+        f[1] = (1/x[0]) * (drag + thrust)
+
+        f[2] = x[1]     #position
+
         return f
 
 

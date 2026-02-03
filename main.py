@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from model import JetPropulsion
 from integration import rk_four
 
-SIM_TIME = 15.0
+SIM_TIME = 40.0
 T = 0.04
 
 t = np.arange(0.0, SIM_TIME, T)
@@ -33,11 +33,12 @@ jetter = JetPropulsion(waterDens, areaEject, areaFront, dragCoeff)
 # %%
 #Simulate Open Loop System
 
-x_init = np.zeros(2)
+x_init = np.zeros(3)
 x_init[0] = 50.0
 x_init[1] = 0.0 
+x_init[2] = 0.0
 
-x = np.zeros((2, N))
+x = np.zeros((3, N))
 u = np.zeros((1, N))
 
 x[:, 0] = x_init
@@ -63,7 +64,7 @@ plt.grid(True)
 plt.show()
 
 plt.figure()
-plt.plot(t, x[1, :], label="x₂")
+plt.plot(t, x[2, :], label="x₂")
 plt.xlabel("Time [s]")
 plt.ylabel("State x2: Velocity")
 plt.grid(True)
@@ -86,7 +87,7 @@ plt.show()
 # plt.grid(True)
 # plt.show()
 
-fig, axs = plt.subplots(3, 1, sharex=True, figsize=(8, 6))
+fig, axs = plt.subplots(4, 1, sharex=True, figsize=(8, 8))
 
 # u: jet velocity
 axs[0].plot(t, u[0, :], color="tab:green")
@@ -98,13 +99,25 @@ axs[1].plot(t, x[0, :], color="tab:blue")
 axs[1].set_ylabel("x₁: mass")
 axs[1].grid(True)
 
-# x2: velocity
-axs[2].plot(t, x[1, :], color="tab:orange")
-axs[2].set_ylabel("x₂: velocity")
-axs[2].set_xlabel("Time [s]")
+axs[2].plot(t, x[2, :], color="tab:purple")
+axs[2].set_ylabel("x1: Position")
 axs[2].grid(True)
+
+# x2: velocity
+axs[3].plot(t, x[1, :], color="tab:orange")
+axs[3].set_ylabel("x2: velocity")
+axs[3].set_xlabel("Time [s]")
+axs[23].grid(True)
+
+
 
 plt.tight_layout()
 plt.show()
+
+# %%
+
+
+
+
 
 # %%
