@@ -49,7 +49,7 @@ salp = Salp(dens=waterDens,
 #Simulate Open Loop System
 
 x_init = np.zeros(7)
-x_init[0] = 1.5
+x_init[0] = 0.5
 
 x = np.zeros((7, N))
 u = np.zeros((2, N))
@@ -62,7 +62,7 @@ for k in range(1,N):
     omega = 2*np.pi * freq_cmd
 
     flow_rate = 0.002 * omega * np.sin(2 * omega * t_curr)
-    thrustAngle = 0
+    thrustAngle = 5
 
     u[0,k-1] = flow_rate
     u[1,k-1] = np.deg2rad(thrustAngle)
@@ -191,5 +191,8 @@ def animate_salp(x_data, t_data, interval=20):
 # Call the function with your simulation results
 ani = animate_salp(x, t)
 
+ani.save("salp_trajectory.gif", writer='pillow', fps=30)
+
 HTML(ani.to_jshtml())
+
 # %%
